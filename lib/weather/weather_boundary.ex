@@ -59,9 +59,6 @@ def api_city(url_city) do
   response_body_decoded["consolidated_weather"]
 end
 
-#I'm thinking after I call my API's asychronously this is when I then need to get
-#My question is my actual code is getting the requests back and assigning them to the correct city so why can't the test??
-
 @doc """
 Finds the max temperature in degrees celsius for any given city for any given day.
 
@@ -82,9 +79,3 @@ end
 
 
 end
-
-
-
-
-# The below code is mainly taken from the below website except for the `!` I added and the appropriate URL's for this code.
-# https://www.toptechskills.com/elixir-phoenix-tutorials-courses/clean-concurrent-code-elixir-task-module/

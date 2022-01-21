@@ -1,7 +1,7 @@
 defmodule WeatherCore do
   import WeatherBoundary
  @moduledoc """
-  A collection of mathematical functions to find for a given city the max temperature of a given day, then the max temperature of a given 6 day period and ultimatley average max temperature for the given 6 day forecast.
+  A collection of mathematical functions to used to calculate the average max temperature for a specified city's 6 day forecast.
 """
 
 
