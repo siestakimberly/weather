@@ -1,5 +1,5 @@
 defmodule WeatherPrint do
-  alias Weather
+import WeatherCore
 @moduledoc """
 A function that prints out the average max temperature in Salt Lake City, Los Angeles, or Boise for a 6 day forecast.
 """
@@ -21,9 +21,9 @@ iex(2)> WeatherPrint.print()
   def print() do
     IO.puts(
       "
-      Salt Lake City Average Max Temp: #{WeatherCore.api_city_weather(0)}
-      Los Angeles Average Max Temp: #{WeatherCore.api_city_weather(1)}
-      Boise Average Max Temp: #{WeatherCore.api_city_weather(2)}
+      Salt Lake City Average Max Temp: #{api_city_weather(0)}
+      Los Angeles Average Max Temp: #{api_city_weather(1)}
+      Boise Average Max Temp: #{api_city_weather(2)}
       "
       )
   end

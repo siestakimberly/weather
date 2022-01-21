@@ -1,5 +1,4 @@
 defmodule WeatherBoundary do
-  alias WeatherCalculations
 @moduledoc """
 A collection of functions that uses the MetaWeather API (https://www.metaweather.com/api/) to find the average max temperature in Salt Lake City, Los Angeles, or Boise for a 6 day forecast.
 """
@@ -7,45 +6,20 @@ A collection of functions that uses the MetaWeather API (https://www.metaweather
   "https://www.metaweather.com/api/location/2442047/",
   "https://www.metaweather.com/api/location/2366355/"]
 
-  @urls %{"Salt Lake City" => "https://www.metaweather.com/api/location/2487610/",
-  "Los Angeles" => "https://www.metaweather.com/api/location/2442047/",
-  "Boise" => "https://www.metaweather.com/api/location/2366355/"}
 
-@doc """
-Returns a list that contains the %HTTPoison.Response{} for each url in @urls. Each %HTTPoison.Response{} contains the body, headers, request, request_url, and status code. The bones of which are shown in the example below.
 
-## Examples
-
-iex(1)> WeatherBoundary.call_apis_async()
-[
-  %HTTPoison.Response{
-    body: "",
-    headers: [
-    ],
-    request: %HTTPoison.Request{
-    },
-    request_url: "https://www.metaweather.com/api/location/2487610/",
-    status_code: 200
-  },
-  %HTTPoison.Response{
-  },
-  %HTTPoison.Response{
-  }
-]
-"""
 @spec call_apis_async() :: list
-  def call_apis_async() do
+  defp call_apis_async() do
     @urls
     |> Task.async_stream(&HTTPoison.get!/1)
     |> Enum.into([], fn {:ok, res} -> res end)
   end
-# I want to return back a list of tasks that get executed.
 
 @doc """
 Transforms our call_apis_async function to get the value of the decoded body of a specific url_city given by the integer.
 
 ## Examples
-iex(6)> WeatherBoundary.api_city(0)
+iex(6)> WeatherBoundary.api_city(W0)
 [
   %{
     "air_pressure" => 1032.0,
@@ -71,6 +45,7 @@ iex(6)> WeatherBoundary.api_city(0)
   %{
   },
   %{
+  },
   %{
   }
 ]
@@ -84,7 +59,8 @@ def api_city(url_city) do
   response_body_decoded["consolidated_weather"]
 end
 
-
+#I'm thinking after I call my API's asychronously this is when I then need to get
+#My question is my actual code is getting the requests back and assigning them to the correct city so why can't the test??
 
 @doc """
 Finds the max temperature in degrees celsius for any given city for any given day.
@@ -112,9 +88,3 @@ end
 
 # The below code is mainly taken from the below website except for the `!` I added and the appropriate URL's for this code.
 # https://www.toptechskills.com/elixir-phoenix-tutorials-courses/clean-concurrent-code-elixir-task-module/
-
-
-# External API
-# Boundary - It right now contains the call to the external API. It also is calling out to calculations and it should not. (Isolate the code that interacts with the third party service.)
-# Calculations
-# Printing
