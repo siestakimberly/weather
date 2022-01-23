@@ -1,4 +1,4 @@
-defmodule WeatherPrintTest do
+defmodule Weather.PrintTest do
 
   use ExUnit.Case
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
@@ -12,8 +12,8 @@ defmodule WeatherPrintTest do
 
   describe "print" do
     test "it successfully prints the max weather temperature for SLC, LA, and Boise" do
-      use_cassette "weather_print_api_successful_request_6" do
-        response = WeatherPrint.print()
+      use_cassette "print_api_successful_request_6" do
+        response = Weather.Print.print()
         assert response == :ok
       end
     end

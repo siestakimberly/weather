@@ -1,12 +1,12 @@
-defmodule WeatherCore do
-  import WeatherBoundary
+defmodule Weather.Core do
+  import Weather.Boundary
  @moduledoc """
   A collection of mathematical functions to used to calculate the average max temperature for a specified city's 6 day forecast.
 """
 
 
 # ## Example
-# iex(1)> WeatherBoundary.api_city(0) |> WeatherCore.avg_max_temp()
+# iex(1)> Weather.Boundary.api_city(0) |> Weather.Core.avg_max_temp()
 # 37.763
 
 @spec avg_max_temp(list) :: float
@@ -19,7 +19,7 @@ end
 
 
 # ## Example
-# iex(1)> WeatherBoundary.api_city(0) |> WeatherCore.sum_max_temp()
+# iex(1)> Weather.Boundary.api_city(0) |> Weather.Core.sum_max_temp()
 # 16.435
 
 @spec sum_max_temp(list) :: float
@@ -32,7 +32,7 @@ end
 Returns the average average max temperature of the given city for a 6 day forecast.
 
 ## Examples
-iex(7)> WeatherCore.api_city_weather(0)
+iex(7)> Weather.Core.api_city_weather(0)
 36.93
 """
 @spec api_city_weather(integer) :: float

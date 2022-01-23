@@ -1,4 +1,4 @@
-defmodule WeatherBoundary do
+defmodule Weather.Boundary do
 @moduledoc """
 A collection of functions that uses the MetaWeather API (https://www.metaweather.com/api/) to find the average max temperature in Salt Lake City, Los Angeles, or Boise for a 6 day forecast.
 """
@@ -19,7 +19,7 @@ A collection of functions that uses the MetaWeather API (https://www.metaweather
 Transforms our call_apis_async function to get the value of the decoded body of a specific url_city given by the integer.
 
 ## Examples
-iex(6)> WeatherBoundary.api_city(W0)
+iex(6)> Weather.Boundary.api_city(W0)
 [
   %{
     "air_pressure" => 1032.0,
@@ -63,10 +63,10 @@ end
 Finds the max temperature in degrees celsius for any given city for any given day.
 
 ## Examples
-iex(3)> WeatherBoundary.api_city(0) |> WeatherBoundary.day_max_temp(0)
+iex(3)> Weather.Boundary.api_city(0) |> Weather.Boundary.day_max_temp(0)
 4.5649999999999995
 
-iex(3)> WeatherBoundary.api_city(1) |> WeatherBoundary.day_max_temp(3)
+iex(3)> Weather.Boundary.api_city(1) |> Weather.Boundary.day_max_temp(3)
 23.01
 """
 
