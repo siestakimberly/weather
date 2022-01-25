@@ -2,9 +2,9 @@ defmodule Weather.Boundary do
 @moduledoc """
 A collection of functions that uses the MetaWeather API (https://www.metaweather.com/api/) to find the average max temperature in Salt Lake City, Los Angeles, or Boise for a 6 day forecast.
 """
-  @urls ["https://www.metaweather.com/api/location/2487610/",
-  "https://www.metaweather.com/api/location/2442047/",
-  "https://www.metaweather.com/api/location/2366355/"]
+#   @urls ["https://www.metaweather.com/api/location/2487610/",
+#   "https://www.metaweather.com/api/location/2442047/",
+#   "https://www.metaweather.com/api/location/2366355/"]
 
 
 
@@ -76,7 +76,7 @@ iex(6)> Weather.Boundary.api_city(0)
 def api_city(url_city) do
   call_apis_async()
   # the map.get I will need to get based on if it is they value from "Salt Lake City" "Los Angeles" or "Boise"
-  |> Enum.at(url_city)
+  |> Map.get(url_city)
   |> Map.get(:body)
   |> Poison.decode!
   |> Map.fetch!("consolidated_weather")
