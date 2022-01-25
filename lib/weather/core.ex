@@ -25,7 +25,9 @@ end
 @spec sum_max_temp(list) :: float
 
 defp sum_max_temp(api_city) do
-  Enum.to_list(0..5) |> Enum.map(&day_max_temp(api_city, &1)) |> Enum.sum
+  Enum.to_list(0..5)
+  |> Enum.map(&day_max_temp(api_city, &1))
+  |> Enum.sum
 end
 
 @doc """

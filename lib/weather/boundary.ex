@@ -54,10 +54,11 @@ iex(6)> Weather.Boundary.api_city(0)
 @spec api_city(integer) :: list
 
 def api_city(url_city) do
-  call_apis_async() |> Enum.at(url_city)
-                    |> Map.get(:body)
-                    |> Poison.decode!
-                    |> Map.fetch!("consolidated_weather")
+  call_apis_async()
+  |> Enum.at(url_city)
+  |> Map.get(:body)
+  |> Poison.decode!
+  |> Map.fetch!("consolidated_weather")
 end
 
 @doc """
