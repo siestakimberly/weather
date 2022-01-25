@@ -55,7 +55,7 @@ iex(6)> Weather.Boundary.api_city(0)
 
 def api_city(url_city) do
   call_apis_async() |> Enum.at(url_city)
-                    |> Map.fetch!(:body)
+                    |> Map.get(:body)
                     |> Poison.decode!
                     |> Map.fetch!("consolidated_weather")
 end
@@ -74,7 +74,7 @@ iex(3)> Weather.Boundary.api_city(1) |> Weather.Boundary.day_max_temp(3)
 @spec day_max_temp(list, integer) :: float
 
 def day_max_temp(api_city, day) do
-  Enum.at(api_city, day) |> Map.fetch!("max_temp")
+  Enum.at(api_city, day) |> Map.get("max_temp")
 end
 
 
