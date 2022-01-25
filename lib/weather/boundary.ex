@@ -9,7 +9,7 @@ A collection of functions that uses the MetaWeather API (https://www.metaweather
 
 
 @spec call_apis_async() :: list
-  defp call_apis_async() do
+  def call_apis_async() do
     @urls
     |> Task.async_stream(&HTTPoison.get!/1)
     |> Enum.into([], fn {:ok, res} -> res end)
@@ -19,7 +19,7 @@ A collection of functions that uses the MetaWeather API (https://www.metaweather
 Transforms our call_apis_async function to get the value of the decoded body of a specific url_city given by the integer.
 
 ## Examples
-iex(6)> Weather.Boundary.api_city(W0)
+iex(6)> Weather.Boundary.api_city(0)
 [
   %{
     "air_pressure" => 1032.0,
@@ -54,13 +54,14 @@ iex(6)> Weather.Boundary.api_city(W0)
 @spec api_city(integer) :: list
 
 def api_city(url_city) do
-  response = call_apis_async() |> Enum.at(url_city)
-  response_body_decoded = response.body |> Poison.decode!
-  response_body_decoded["consolidated_weather"]
+  call_apis_async() |> Enum.at(url_city)
+                    |> Map.fetch!(:body)
+                    |> Poison.decode!
+                    |> Map.fetch!("consolidated_weather")
 end
 
 @doc """
-Finds the max temperature in degrees celsius for any given city for any given day.
+Finds the max temperature in degrees celsius for any given city for days 0 through 5.
 
 ## Examples
 iex(3)> Weather.Boundary.api_city(0) |> Weather.Boundary.day_max_temp(0)
@@ -73,8 +74,7 @@ iex(3)> Weather.Boundary.api_city(1) |> Weather.Boundary.day_max_temp(3)
 @spec day_max_temp(list, integer) :: float
 
 def day_max_temp(api_city, day) do
-  day = Enum.at(api_city, day)
-  day["max_temp"]
+  Enum.at(api_city, day) |> Map.fetch!("max_temp")
 end
 
 
