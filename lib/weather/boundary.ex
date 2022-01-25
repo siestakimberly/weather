@@ -15,6 +15,22 @@ A collection of functions that uses the MetaWeather API (https://www.metaweather
     |> Enum.into([], fn {:ok, res} -> res end)
   end
 
+
+#   @urls %{"Salt Lake City" => "https://www.metaweather.com/api/location/2487610/",
+#   "Los Angeles" => "https://www.metaweather.com/api/location/2442047/",
+#   "Boise" => "https://www.metaweather.com/api/location/2366355/"}
+
+
+
+# @spec call_apis_async() :: list
+#   def call_apis_async() do
+#     @urls
+#     |> Enum.map(fn {k, v} -> v end)
+#     |> Task.async_stream(&HTTPoison.get!/1)
+#     |> Enum.into([], fn {:ok, res} -> res end)
+#   end
+
+
 @doc """
 Transforms our call_apis_async function to get the value of the decoded body of a specific url_city given by the integer.
 
@@ -51,10 +67,15 @@ iex(6)> Weather.Boundary.api_city(0)
 ]
 
 """
+
+#instead of the spec being integer here, I should make this the "key" of my @urls map so maybe a string??
 @spec api_city(integer) :: list
+
+#This is where I believe I will need to match the city based on the information I get back.
 
 def api_city(url_city) do
   call_apis_async()
+  # the map.get I will need to get based on if it is they value from "Salt Lake City" "Los Angeles" or "Boise"
   |> Enum.at(url_city)
   |> Map.get(:body)
   |> Poison.decode!

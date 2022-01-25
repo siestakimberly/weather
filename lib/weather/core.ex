@@ -40,7 +40,9 @@ iex(7)> Weather.Core.api_city_weather(0)
 @spec api_city_weather(integer) :: float
 
 def api_city_weather(city) do
-  api_city(city) |> avg_max_temp() |> Float.round(2)
+  api_city(city)
+  |> avg_max_temp()
+  |> Float.round(2)
 end
 
 end
