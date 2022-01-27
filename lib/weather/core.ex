@@ -12,6 +12,7 @@ defp number_of_days() do
  @days |> length()
 end
 
+
 # ## Example
 # iex(1)> Weather.Boundary.api_city(0) |> Weather.Core.avg_max_temp()
 # 37.763
@@ -19,9 +20,8 @@ end
 @spec avg_max_temp(list) :: float
 
 defp avg_max_temp(sum_max_temp) do
- celsius = sum_max_temp(sum_max_temp)/ number_of_days()
- farenheight = celsius * 9/5 + 32
- farenheight
+ sum_max_temp(sum_max_temp)/ number_of_days() * 9/5 + 32
+
 end
 
 
