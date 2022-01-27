@@ -1,9 +1,16 @@
 defmodule Weather.Core do
-  import Weather.Boundary
+  alias Weather.Boundary
+
+  @days [0, 1, 2, 3, 4, 5]
  @moduledoc """
   A collection of mathematical functions to used to calculate the average max temperature for a specified city's 6 day forecast.
 """
 
+@spec avg_max_temp(list) :: integer
+
+defp number_of_days() do
+ @days |> length()
+end
 
 # ## Example
 # iex(1)> Weather.Boundary.api_city(0) |> Weather.Core.avg_max_temp()
@@ -12,10 +19,12 @@ defmodule Weather.Core do
 @spec avg_max_temp(list) :: float
 
 defp avg_max_temp(sum_max_temp) do
- celsius = sum_max_temp(sum_max_temp)/ 6
+ celsius = sum_max_temp(sum_max_temp)/ number_of_days()
  farenheight = celsius * 9/5 + 32
  farenheight
 end
+
+
 
 
 # ## Example
@@ -24,11 +33,7 @@ end
 
 @spec sum_max_temp(list) :: float
 
-defp sum_max_temp(api_city) do
-  Enum.to_list(0..5)
-  |> Enum.map(&day_max_temp(api_city, &1))
-  |> Enum.sum
-end
+defp sum_max_temp(api_city), do: @days |> Enum.map(&Boundary.day_max_temp(api_city, &1)) |> Enum.sum
 
 @doc """
 Returns the average average max temperature of the given city for a 6 day forecast.
@@ -40,7 +45,7 @@ iex(7)> Weather.Core.api_city_weather(0)
 @spec api_city_weather(integer) :: float
 
 def api_city_weather(city) do
-  api_city(city)
+  Boundary.api_city(city)
   |> avg_max_temp()
   |> Float.round(2)
 end
