@@ -26,7 +26,4 @@ defmodule Weather.MixProject do
       {:exvcr, "~> 0.13.2", only: :test}
     ]
   end
-
-
-
 end

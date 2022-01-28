@@ -1,30 +1,34 @@
 defmodule Weather.Print do
-import Weather.Core
-@moduledoc """
-A function that prints out the average max temperature in Salt Lake City, Los Angeles, or Boise for a 6 day forecast.
-"""
+  alias Weather.Core
+  alias Weather.Boundary
 
-@doc """
-Prints out the average max temperature in Salt Lake City, Los Angeles, and Boise for a 6 day forecast.
+  @moduledoc """
+  A function that prints out the average max temperature in Salt Lake City, Los Angeles, or Boise for a 6 day forecast.
+  """
 
-## Examples
-iex(2)> Weather.Print.print()
+  @doc """
+  Prints out the average max temperature in Salt Lake City, Los Angeles, and Boise for a 6 day forecast.
 
-      Salt Lake City Average Max Temp: 37.82
-      Los Angeles Average Max Temp: 71.92
-      Boise Average Max Temp: 34.25
+  ## Examples
+  iex(2)> Weather.Print.print()
 
-:ok
+        Salt Lake City Average Max Temp: 37.82
+        Los Angeles Average Max Temp: 71.92
+        Boise Average Max Temp: 34.25
 
-"""
+  :ok
+
+  """
+
+  # This makes it do 3 calls instead of 9 calls
 
   def print() do
-    IO.puts(
-      "
-      Salt Lake City Average Max Temp: #{api_city_weather(0)}
-      Los Angeles Average Max Temp: #{api_city_weather(1)}
-      Boise Average Max Temp: #{api_city_weather(2)}
-      "
-      )
+    results = Core.api_cities()
+
+    IO.puts("
+      Salt Lake City Average Max Temp: #{Enum.at(results, 0)}
+      Los Angeles Average Max Temp: #{Enum.at(results, 1)}
+      Boise Average Max Temp: #{Enum.at(results, 2)}
+      ")
   end
 end
