@@ -1,9 +1,8 @@
 defmodule Weather.Print do
   alias Weather.Core
-  alias Weather.Boundary
 
   @moduledoc """
-  A function that prints out the average max temperature in Salt Lake City, Los Angeles, or Boise for a 6 day forecast.
+  A function that makes 3 calls to our external API and prints out the average max temperature in Salt Lake City, Los Angeles, or Boise for a 6 day forecast.
   """
 
   @doc """
@@ -19,8 +18,6 @@ defmodule Weather.Print do
   :ok
 
   """
-
-  # This makes it do 3 calls instead of 9 calls
 
   def print() do
     results = Core.api_cities()

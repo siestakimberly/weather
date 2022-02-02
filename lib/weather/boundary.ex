@@ -1,5 +1,5 @@
 defmodule Weather.Boundary do
-  #mix format
+  # mix format
 
   @moduledoc """
   A collection of functions that uses the MetaWeather API (https://www.metaweather.com/api/) to find the average max temperature in Salt Lake City, Los Angeles, or Boise for a 6 day forecast.
@@ -18,18 +18,6 @@ defmodule Weather.Boundary do
     |> Enum.into([], fn {:ok, res} -> res end)
   end
 
-  #   @urls %{"Salt Lake City" => "https://www.metaweather.com/api/location/2487610/",
-  #   "Los Angeles" => "https://www.metaweather.com/api/location/2442047/",
-  #   "Boise" => "https://www.metaweather.com/api/location/2366355/"}
-
-  # # @spec call_apis_async() :: list
-  #   def call_apis_async() do
-  #     @urls
-  #     |> Enum.map(fn {_k, v} -> v end)
-  #     |> Task.async_stream(&HTTPoison.get!/1)
-  #     |> Enum.into([], fn {:ok, res} -> res end)
-  #   end
-
   @doc """
   Transforms our call_apis_async function to get the value of the decoded body of a specific url_city given by the integer.
 
@@ -37,21 +25,21 @@ defmodule Weather.Boundary do
   iex(6)> Weather.Boundary.api_city(0)
   [
     %{
-      "air_pressure" => 1032.0,
-      "applicable_date" => "2022-01-20",
-      "created" => "2022-01-20T17:29:17.264333Z",
-      "humidity" => 68,
-      "id" => 6180269842235392,
-      "max_temp" => 4.5649999999999995,
-      "min_temp" => -3.985,
-      "predictability" => 75,
-      "the_temp" => 3.295,
-      "visibility" => 10.28773214427742,
-      "weather_state_abbr" => "lr",
-      "weather_state_name" => "Light Rain",
-      "wind_direction" => 157.3131986341516,
-      "wind_direction_compass" => "SSE",
-      "wind_speed" => 3.693760091990774
+      "air_pressure" => 1022.5,
+      "applicable_date" => "2022-02-01",
+      "created" => "2022-02-01T23:29:16.375130Z",
+      "humidity" => 49,
+      "id" => 5298221669679104,
+      "max_temp" => 0.36,
+      "min_temp" => -5.734999999999999,
+      "predictability" => 70,
+      "the_temp" => 0.58,
+      "visibility" => 13.764303964845304,
+      "weather_state_abbr" => "lc",
+      "weather_state_name" => "Light Cloud",
+      "wind_direction" => 315.64014062879346,
+      "wind_direction_compass" => "NW",
+      "wind_speed" => 5.375694676833956
     },
     %{
     },
@@ -67,20 +55,9 @@ defmodule Weather.Boundary do
 
   """
 
-  # instead of the spec being integer here, I should make this the "key" of my @urls map so maybe a string??
   @spec api_city(integer) :: list
-
-  # This is where I believe I will need to match the city based on the information I get back.
-
   def api_city(url_city) do
     call_apis_async()
-    # I'm thinking that right here instead of using Enum.at I will need to use something that returns the HTTPoison Response that contains the weid of the city I am looking for.
-    # Or somehow can I call back the value being the response for the key of either "Salt Lake City" "Boise" and "Los Angeles" like I had defined above?
-    # Like can I use Map.fetch and Enumerable to go through the list and find the HTTPoison.Response that contains the correct body?
-
-    # Enum.find(enumerable, default \\ nil, fun) - the function here would need to be body contains...
-
-    #   |> Enum.map(&Map.get(:body))
     |> Enum.at(url_city)
     |> Map.get(:body)
     |> Poison.decode!()
@@ -91,14 +68,13 @@ defmodule Weather.Boundary do
   Finds the max temperature in degrees celsius for any given city for days 0 through 5.
 
   ## Examples
-  iex(3)> Weather.Boundary.api_city(0) |> Weather.Boundary.day_max_temp(0)
-  4.5649999999999995
+  iex(1)> Weather.Boundary.api_city(0) |> Weather.Boundary.day_max_temp(0)
+  0.36
 
-  iex(3)> Weather.Boundary.api_city(1) |> Weather.Boundary.day_max_temp(3)
-  23.01
+  iex(1)> Weather.Boundary.api_city(1) |> Weather.Boundary.day_max_temp(3)
+  21.22
   """
 
   @spec day_max_temp(list, integer) :: float
-
   def day_max_temp(api_city, day), do: Enum.at(api_city, day) |> Map.get("max_temp")
 end
