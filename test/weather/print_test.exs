@@ -9,7 +9,7 @@ defmodule Weather.PrintTest do
 
   describe "print" do
     test "it successfully prints the max weather temperature for SLC, LA, and Boise" do
-      use_cassette "print_api_successful_request_6" do
+      use_cassette "print_api_successful_request_4" do
         response = Weather.Print.print()
         assert response == :ok
       end
