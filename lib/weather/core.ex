@@ -45,5 +45,4 @@ defmodule Weather.Core do
   def api_cities() do
     Boundary.call_apis_async() |> Enum.map(&get_weather_from_result/1)
   end
-
 end

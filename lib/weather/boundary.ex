@@ -15,5 +15,4 @@ defmodule Weather.Boundary do
     |> Task.async_stream(&HTTPoison.get!/1)
     |> Enum.into([], fn {:ok, res} -> res end)
   end
-
 end
