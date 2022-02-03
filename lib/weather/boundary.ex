@@ -1,8 +1,6 @@
 defmodule Weather.Boundary do
-  # mix format
-
   @moduledoc """
-  A collection of functions that uses the MetaWeather API (https://www.metaweather.com/api/) to find the average max temperature in Salt Lake City, Los Angeles, or Boise for a 6 day forecast.
+  A function that uses the MetaWeather API (https://www.metaweather.com/api/) to create a list containing the %HTTPoison.Response{} of SLC, LA, and Boise.
   """
 
   @urls [
@@ -17,7 +15,5 @@ defmodule Weather.Boundary do
     |> Task.async_stream(&HTTPoison.get!/1)
     |> Enum.into([], fn {:ok, res} -> res end)
   end
-
-
 
 end

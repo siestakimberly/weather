@@ -19,8 +19,8 @@ defmodule Weather.Core do
   defp sum_max_temp(api_city), do: @days |> Enum.map(&day_max_temp(api_city, &1)) |> Enum.sum()
 
   @spec avg_max_temp(list) :: float
-  defp avg_max_temp(sum_max_temp) do
-    sum_max_temp(sum_max_temp) / number_of_days() * 9 / 5 + 32
+  defp avg_max_temp(api_city) do
+    sum_max_temp(api_city) / number_of_days() * 9 / 5 + 32
   end
 
   @spec get_weather_from_result(struct) :: float

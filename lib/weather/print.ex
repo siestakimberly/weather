@@ -18,7 +18,7 @@ defmodule Weather.Print do
   :ok
 
   """
-
+  @spec print() :: :ok
   def print() do
     results = Core.api_cities()
 

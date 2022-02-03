@@ -34,5 +34,3 @@ defmodule Weather.CoreTest do
     end
   end
 end
-
-# wrap the callout code into a cassette.
