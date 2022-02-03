@@ -23,6 +23,10 @@ defmodule Weather.Core do
     sum_max_temp(api_city) / number_of_days() * 9 / 5 + 32
   end
 
+  ## Example
+  # iex(4)> Weather.Boundary.call_apis_async() |> Enum.at(0) |> Weather.Core.get_weather_from_result
+  # 38.6
+
   @spec get_weather_from_result(struct) :: float
   defp get_weather_from_result(api_result) do
     api_result
